@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>احتراف كتابة البرومبت مع Google Flow | من الصفر إلى الاحتراف</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/thamenat" rel="stylesheet">
+<style>
+:root{--gb:#1a73e8;--gb-d:#1557b0;--gr:#ea4335;--gy:#fbbc05;--gg:#34a853;--gt:#5f6368;--gl:#f8f9fa;--ge:#e8eaed;--tp:#202124;--ts:#5f6368;--wh:#fff;--sh:0 2px 12px rgba(0,0,0,.08);--sh-lg:0 8px 32px rgba(0,0,0,.12);--rd:12px;--rl:24px;--tr:.35s cubic-bezier(0.4,0,0.2,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Thameena','Noto Kufi Arabic','Segoe UI',Tahoma,Arial,sans-serif;background:var(--gl);color:var(--tp);line-height:1.9;overflow-x:hidden}
+/* ===== DARK MODE ===== */
+body.dark{--tp:#e8eaed;--ts:#9aa0a6;--wh:#202124;--gl:#17181a;--ge:#3c4043;--sh:0 2px 12px rgba(0,0,0,.3);--sh-lg:0 8px 32px rgba(0,0,0,.4)}
+/* ===== STRIP ===== */
+.strip{display:flex;align-items:center;justify-content:center;gap:5px;padding:14px;background:var(--wh);border-bottom:1px solid var(--ge);position:sticky;top:0;z-index:100}
+.strip .d{width:8px;height:8px;border-radius:50%;animation:bounce 2.4s infinite}
+.strip .d:nth-child(1){background:var(--gb);animation-delay:0s}
+.strip .d:nth-child(2){background:var(--gr);animation-delay:.2s}
+.strip .d:nth-child(3){background:var(--gy);animation-delay:.4s}
+.strip .d:nth-child(4){background:var(--gg);animation-delay:.6s}
+.strip .d:nth-child(5){background:var(--gb);animation-delay:.8s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+/* ===== NAV ===== */
+nav{position:sticky;top:37px;z-index:99;background:var(--wh);border-bottom:1px solid var(--ge);box-shadow:var(--sh);backdrop-filter:blur(20px);transition:var(--tr)}
+body.dark nav{background:rgba(32,33,36,.95);border-bottom-color:var(--ge)}
+nav .nc{max-width:1100px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;padding:0 16px;scrollbar-width:none}
+nav .nc::-webkit-scrollbar{display:none}
+nav a{text-decoration:none;color:var(--ts);padding:12px 18px;font-size:.88rem;font-weight:600;white-space:nowrap;transition:var(--tr);position:relative;border-radius:8px}
+nav a::after{content:'';position:absolute;bottom:0;right:50%;width:0;height:3px;background:var(--gb);border-radius:3px 3px 0 0;transition:var(--tr);transform:translateX(50%)}
+nav a:hover{color:var(--gb);background:var(--gl)}
+nav a:hover::after,nav a.active::after{width:70%}
+nav a.active{color:var(--gb);background:rgba(26,115,232,.08)}
+/* ===== PAGES ===== */
+.page{display:none;min-height:calc(100vh - 120px)}
+.page.active{display:block;animation:pageIn .5s cubic-bezier(0.4,0,0.2,1) forwards}
+@keyframes pageIn{from{opacity:0;transform:translateY(30px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+/* ===== HEADER ===== */
+header{text-align:center;padding:60px 24px 40px;background:linear-gradient(180deg,var(--wh) 0%,var(--gl) 100%)}
+body.dark header{background:linear-gradient(180deg,#202124 0%,#17181a 100%)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gb),var(--gb-d));color:#fff;padding:10px 24px;border-radius:50px;font-size:.9rem;margin-bottom:22px;box-shadow:var(--sh);animation:badgePulse 3s infinite}
+@keyframes badgePulse{0%,100%{box-shadow:0 2px 12px rgba(26,115,232,.25)}50%{box-shadow:0 4px 20px rgba(26,115,232,.4)}}
+header h1{font-size:clamp(1.7rem,5vw,3rem);font-weight:800;margin-bottom:14px;line-height:1.5}
+header h1 .hl{background:linear-gradient(135deg,var(--gb),var(--gg));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+header .sub{font-size:1.15rem;color:var(--ts);max-width:650px;margin:0 auto 20px}
+header .meta{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;font-size:.92rem;color:var(--ts)}
+header .meta span{display:flex;align-items:center;gap:6px}
+/* ===== CONTENT ===== */
+main{max-width:860px;margin:0 auto;padding:36px 20px 60px}
+.section{background:var(--wh);border-radius:var(--rl);padding:36px;margin-bottom:28px;box-shadow:var(--sh);border:1px solid var(--ge);transition:var(--tr)}
+.section:hover{box-shadow:var(--sh-lg)}
+.sh{display:flex;align-items:center;gap:16px;margin-bottom:22px;padding-bottom:16px;border-bottom:2px solid var(--gl)}
+.si{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff;flex-shrink:0;box-shadow:var(--sh)}
+.si.b{background:linear-gradient(135deg,var(--gb),#4285f4)}.si.r{background:linear-gradient(135deg,var(--gr),#ff6b5b)}.si.y{background:linear-gradient(135deg,var(--gy),#ffd700)}.si.g{background:linear-gradient(135deg,var(--gg),#4caf50)}.si.p{background:linear-gradient(135deg,#8e24aa,#ab47bc)}.si.o{background:linear-gradient(135deg,#ff6d00,#ff9100)}
+.section h2{font-size:1.5rem}.section h3{font-size:1.15rem;margin:22px 0 12px}.section p{color:var(--ts);margin-bottom:14px;font-size:1rem}
+/* ===== CARDS ===== */
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:20px 0}
+.card{background:var(--gl);border-radius:var(--rd);padding:22px;border:1px solid var(--ge);transition:all .4s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;cursor:default}
+.card::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;border-radius:0 4px 4px 0}
+.card.b::before{background:var(--gb)}.card.r::before{background:var(--gr)}.card.y::before{background:var(--gy)}.card.g::before{background:var(--gg)}
+.card:hover{transform:translateY(-8px) scale(1.03);box-shadow:var(--sh-lg)}
+.card h4{font-size:1.05rem;margin-bottom:8px;transition:var(--tr)}
+.card:hover h4{color:var(--gb)}
+.card p{font-size:.88rem;margin:0;transition:var(--tr)}
+/* ===== PROMPT BOX ===== */
+.pb{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);border-radius:var(--rd);padding:24px;margin:20px 0;position:relative;overflow:hidden;transition:all .4s cubic-bezier(0.4,0,0.2,1)}
+.pb::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 40%,rgba(26,115,232,.08) 0%,transparent 50%);transition:var(--tr)}
+.pb:hover{transform:scale(1.015);box-shadow:0 12px 40px rgba(0,0,0,.2)}
+.pb .pl{font-size:.78rem;color:var(--gy);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.pb .pt{font-family:'Noto Naskh Arabic','Courier New',monospace;font-size:.92rem;color:#e8e8e8;line-height:1.8;white-space:pre-wrap;word-wrap:break-word;direction:ltr;text-align:left}
+.copy-btn{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;padding:6px 16px;border-radius:8px;cursor:pointer;font-size:.78rem;transition:all .3s cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(10px)}
+.copy-btn:hover{background:rgba(255,255,255,.22);transform:scale(1.05)}
+.copy-btn.ok{background:var(--gg);border-color:var(--gg);transform:scale(1.1)}
+/* ===== TIP BOXES ===== */
+.tip{background:#e8f0fe;border-right:4px solid var(--gb);border-radius:10px;padding:16px 20px;margin:16px 0;transition:var(--tr)}
+body.dark .tip{background:#2d2e30}
+.tip:hover{transform:translateX(-4px);box-shadow:var(--sh)}
+.tip b{color:var(--gb)}.tip p{margin:0;font-size:.88rem}
+.warn{background:#fef7e0;border-right:4px solid var(--gy);border-radius:10px;padding:16px 20px;margin:16px 0;transition:var(--tr)}
+body.dark .warn{background:#2d2e30}
+.warn:hover{transform:translateX(-4px);box-shadow:var(--sh)}
+.warn b{color:#b06000}.warn p{margin:0;font-size:.88rem}
+.ok-box{background:#e6f4ea;border-right:4px solid var(--gg);border-radius:10px;padding:16px 20px;margin:16px 0;transition:var(--tr)}
+body.dark .ok-box{background:#2d2e30}
+.ok-box:hover{transform:translateX(-4px);box-shadow:var(--sh)}
+.ok-box b{color:var(--gg)}.ok-box p{margin:0;font-size:.88rem}
+/* ===== TABLE ===== */
+.tbl{width:100%;border-collapse:collapse;margin:20px 0;font-size:.9rem;border-radius:var(--rd);overflow:hidden;box-shadow:var(--sh)}
+.tbl th{background:var(--gb);color:#fff;padding:14px 16px;text-align:right;font-weight:600}
+.tbl th:first-child{border-radius:0 12px 0 0}.tbl th:last-child{border-radius:12px 0 0 0}
+.tbl td{padding:12px 16px;border-bottom:1px solid var(--ge);color:var(--ts);transition:var(--tr)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--gl)}
+body.dark .tbl tr:hover td{background:#2d2e30}
+/* ===== TABS ===== */
+.tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;background:var(--gl);padding:6px;border-radius:50px;border:1px solid var(--ge)}
+.tab-btn{padding:10px 22px;border:none;border-radius:50px;background:transparent;color:var(--ts);cursor:pointer;font-size:.88rem;font-weight:600;transition:all .35s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden}
+.tab-btn::before{content:'';position:absolute;inset:0;border-radius:50px;background:var(--gb);opacity:0;transition:var(--tr);z-index:0}
+.tab-btn:hover{color:var(--gb)}
+.tab-btn.on{background:var(--gb);color:#fff;box-shadow:0 2px 12px rgba(26,115,232,.3)}
+.tab-content{display:none}
+.tab-content.on{display:block;animation:tabIn .4s cubic-bezier(0.4,0,0.2,1)}
+@keyframes tabIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* ===== ACCORDION ===== */
+.acc{margin:16px 0}
+.ai{border:1px solid var(--ge);border-radius:var(--rd);margin-bottom:10px;overflow:hidden;transition:var(--tr)}
+.ai:hover{box-shadow:var(--sh)}
+.ah{padding:16px 20px;background:var(--wh);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.95rem;user-select:none;transition:var(--tr)}
+.ah:hover{background:var(--gl)}
+.ah .ar{transition:var(--tr);color:var(--ts);font-size:1.1rem}
+.ai.on{border-color:var(--gb)}
+.ai.on .ah{color:var(--gb)}
+.ai.on .ah .ar{transform:rotate(180deg);color:var(--gb)}
+.ab{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(0.4,0,0.2,1);padding:0 20px;background:var(--gl)}
+.ai.on .ab{max-height:800px;padding:16px 20px}
+.ab p{font-size:.88rem;margin-bottom:8px}
+/* ===== LEVEL ===== */
+.lvl{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:50px;font-size:.8rem;font-weight:700;margin-bottom:16px}
+.lvl.e{background:#e6f4ea;color:var(--gg)}.lvl.m{background:#fef7e0;color:#b06000}.lvl.h{background:#fce8e6;color:var(--gr)}
+/* ===== CHECKLIST ===== */
+.chk{list-style:none;padding:0}
+.chk li{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--ge);transition:var(--tr)}
+.chk li:last-child{border:none}
+.chk li:hover{background:var(--gl);border-radius:8px;padding-right:8px}
+.chk input{width:20px;height:20px;accent-color:var(--gb);cursor:pointer;flex-shrink:0;margin-top:4px;transition:var(--tr)}
+.chk input:checked{transform:scale(1.2)}
+.chk span{color:var(--ts);font-size:.92rem;transition:var(--tr)}
+.chk li.done span{text-decoration:line-through;color:#9aa0a6}
+/* ===== BUILDER ===== */
+.bc{background:var(--gl);border-radius:var(--rd);padding:26px;margin:20px 0;border:2px dashed var(--ge);transition:var(--tr)}
+.bc:hover{border-color:var(--gb)}
+.bf{margin-bottom:18px}
+.bf label{display:block;font-weight:700;margin-bottom:8px;font-size:.92rem}
+.bf input,.bf select,.bf textarea{width:100%;padding:14px 16px;border:2px solid var(--ge);border-radius:10px;font-size:.92rem;font-family:inherit;transition:var(--tr);background:var(--wh);color:var(--tp)}
+.bf input:focus,.bf select:focus,.bf textarea:focus{outline:none;border-color:var(--gb);box-shadow:0 0 0 4px rgba(26,115,232,.12)}
+.bf textarea{min-height:80px;resize:vertical}
+.bo{background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:var(--rd);padding:22px;margin-top:20px;position:relative;overflow:hidden}
+.bo::before{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle at 70% 30%,rgba(26,115,232,.1) 0%,transparent 50%)}
+.bo .bl{color:var(--gy);font-size:.78rem;margin-bottom:10px}
+.bo .bt{font-family:'Noto Naskh Arabic','Courier New',monospace;color:#e8e8e8;font-size:.88rem;line-height:1.8;white-space:pre-wrap;direction:ltr;text-align:left}
+/* ===== PROGRESS ===== */
+.prog{background:var(--wh);border-radius:var(--rl);padding:28px 36px;margin-bottom:28px;box-shadow:var(--sh);border:1px solid var(--ge)}
+.pb-con{background:var(--gl);border-radius:50px;height:12px;overflow:hidden;margin-top:14px;position:relative}
+.pb-f{height:100%;background:linear-gradient(90deg,var(--gb),var(--gg));border-radius:50px;transition:width .6s cubic-bezier(0.4,0,0.2,1);width:0%}
+.pb-f::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:shimmer 2s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.pl-l{display:flex;justify-content:space-between;margin-top:8px;font-size:.78rem;color:var(--ts)}
+/* ===== FOOTER ===== */
+footer{text-align:center;padding:40px 20px;background:var(--wh);border-top:1px solid var(--ge);margin-top:40px;transition:var(--tr)}
+body.dark footer{background:#202124;border-top-color:var(--ge)}
+footer .fd{display:flex;justify-content:center;gap:8px;margin-bottom:14px}
+footer .fd i{width:10px;height:10px;border-radius:50%;transition:var(--tr)}
+footer .fd i:nth-child(1){background:var(--gb)}footer .fd i:nth-child(2){background:var(--gr)}footer .fd i:nth-child(3){background:var(--gy)}footer .fd i:nth-child(4){background:var(--gg)}
+footer .fd i:hover{transform:scale(1.5)}
+footer p{color:var(--ts);font-size:.88rem}
+/* ===== SCROLL TOP ===== */
+.st-t{position:fixed;bottom:30px;left:30px;width:52px;height:52px;border-radius:50%;background:var(--gb);color:#fff;border:none;cursor:pointer;font-size:1.3rem;box-shadow:var(--sh-lg);opacity:0;visibility:hidden;transition:all .4s cubic-bezier(0.4,0,0.2,1);z-index:99;display:flex;align-items:center;justify-content:center}
+.st-t.vis{opacity:1;visibility:visible}
+.st-t:hover{background:var(--gb-d);transform:scale(1.12) translateY(-4px)}
+/* ===== DARK TOGGLE ===== */
+.dark-toggle{position:fixed;top:50px;left:16px;z-index:200;width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--gb),var(--gb-d));color:#fff;border:none;cursor:pointer;font-size:1.3rem;box-shadow:var(--sh-lg);transition:all .4s cubic-bezier(0.4,0,0.2,1);display:flex;align-items:center;justify-content:center}
+.dark-toggle:hover{transform:rotate(20deg) scale(1.1)}
+/* ===== PAGE INDICATOR ===== */
+.page-ind{display:flex;justify-content:center;gap:8px;margin:20px 0 30px}
+.page-ind .pi{width:10px;height:10px;border-radius:50%;background:var(--ge);cursor:pointer;transition:var(--tr)}
+.page-ind .pi.on{width:30px;border-radius:50px;background:var(--gb)}
+.page-ind .pi:hover{transform:scale(1.3)}
+/* ===== RESPONSIVE ===== */
+@media(max-width:640px){.section{padding:22px}header{padding:40px 16px 30px}.cg{grid-template-columns:1fr}main{padding:24px 12px 50px}nav a{padding:10px 12px;font-size:.8rem}.sh{flex-direction:column;text-align:center}}
+</style>
+</head>
+<body>
+
+<button class="dark-toggle" id="darkToggle" onclick="toggleDark()" title="تبديل الوضع الداكن">🌙</button>
+<div class="strip"><div class="d"></div><div class="d"></div><div class="d"></div><div class="d"></div><div class="d"></div></div>
+
+<nav><div class="nc">
+<a href="#" data-page="intro" class="active">المقدمة</a>
+<a href="#" data-page="basics">الأساسيات</a>
+<a href="#" data-page="anatomy">تشريح البرومبت</a>
+<a href="#" data-page="image">برومبتات الصور</a>
+<a href="#" data-page="video">برومبتات الفيديو</a>
+<a href="#" data-page="advanced">تقنيات متقدمة</a>
+<a href="#" data-page="builder">Builder البرومبت</a>
+<a href="#" data-page="quiz">اختبر نفسك</a>
+<a href="#" data-page="checklist">قائمة الإنجاز</a>
+</div></nav>
+
+<!-- ===== PAGE: INTRO ===== -->
+<div class="page active" id="page-intro">
+<header>
+<div class="badge">✨ دليل تفاعلي شامل</div>
+<h1>احتراف كتابة البرومبت<br><span class="hl">لتوليد الصور والفيديوهات</span><br>عبر Google Flow</h1>
+<p class="sub">من الصفر إلى الاحتراف — تعلم كتابة برومبتات احترافية تُنتج نتائج مذهلة باستخدام أدوات الذكاء الاصطناعي من جوجل</p>
+<div class="meta"><span>👨‍💻 إعداد: المهندس علي موجد</span><span>📅 2026</span><span>⏱️ 60+ دقيقة</span></div>
+</header>
+<main>
+<div class="section">
+<div class="sh"><div class="si b">🚀</div><h2>مقدمة في عالم البرومبت</h2></div>
+<div class="lvl e">المستوى: تمهيدي</div>
+<p>في عالم الذكاء الاصطناعي المتسارع، أصبحت كتابة البرومبت (Prompt) مهارة أساسية لأي شخص يريد الاستفادة القصوى من أدوات التوليد. Google Flow يُعد من أقوى المنصات التي تتيح لك توليد صور وفيديوهات مذهلة بمجرد كتابة وصف نصي دقيق.</p>
+<p>في هذه الدورة التفاعلية، ستتعلم كل ما تحتاجه لتصبح محترفًا في كتابة البرومبتات — من فهم الأساسيات إلى إتقان التقنيات المتقدمة التي يستخدمها المحترفون.</p>
+<h3>ما الذي ستتعلمه؟</h3>
+<div class="cg">
+<div class="card b"><h4>🧱 أساسيات البرومبت</h4><p>فهم المكونات الأساسية وكتابة أوامر واضحة ومحددة</p></div>
+<div class="card r"><h4>🎨 توليد الصور</h4><p>تقنيات كتابة برومبتات احترافية لتوليد صور بجودة استوديو</p></div>
+<div class="card y"><h4>🎬 توليد الفيديو</h4><p>كيف تصف الحركة والإيقاع للحصول على فيديوهات سينمائية</p></div>
+<div class="card g"><h4>⚡ تقنيات متقدمة</h4><p>استخدام الأوزان، السلبيات، والتحكم الدقيق في النتائج</p></div>
+</div>
+<div class="tip"><b>💡 نصيحة مهمة</b><p>البرومبت الجيد يشبه إعطاء تعليمات لمخرج سينمائي! كلما كانت أوامرك أكثر تحديدًا ووضوحًا، كانت النتيجة أفضل.</p></div>
+</div>
+</main>
+</div>
+
+<!-- ===== PAGE: BASICS ===== -->
+<div class="page" id="page-basics">
+<main>
+<div class="section">
+<div class="sh"><div class="si g">📚</div><h2>أساسيات كتابة البرومبت</h2></div>
+<div class="lvl e">المستوى: مبتدئ</div>
+<h3>ما هو البرومبت؟</h3>
+<p>البرومبت هو النص الذي تكتبه لتوجيه نموذج الذكاء الاصطناعي لما تريد إنشاؤه. في Google Flow، يمكن للبرومبت أن ينتج صورًا ثابتة أو فيديوهات متحركة بناءً على وصفك النصي.</p>
+<h3>المبادئ الأربعة للبرومبت الفعّال</h3>
+<table class="tbl"><tr><th>المبدأ</th><th>الوصف</th><th>مثال</th></tr>
+<tr><td><strong>الوضوح</strong></td><td>استخدم كلمات محددة</td><td>❌ "صورة حلوة" → ✅ "غروب الشمس فوق المحيط"</td></tr>
+<tr><td><strong>السياق</strong></td><td>اعطِ معلومات عن المزاج</td><td>"أجواء هادئة ومليئة بالحنين"</td></tr>
+<tr><td><strong>التفاصيل</strong></td><td>كلما زادت التفاصيل، تحسنت النتيجة</td><td>"إضاءة دافئة، ألوان باستيل، زاوية واسعة"</td></tr>
+<tr><td><strong>الأسلوب</strong></td><td>حدد الفنية المطلوبة</td><td>"بأسلوب الواقعية المفرطة"</td></tr></table>
+<h3>أخطاء شائعة يجب تجنبها</h3>
+<div class="cg">
+<div class="card r"><h4>❌ البرومبت المبهم جدًا</h4><p>"صورة جميلة لشيء ما" — لا يعطي النموذج أي اتجاه واضح</p></div>
+<div class="card y"><h4>❌ البرومبت المعقد جدًا</h4><p>عشرات الجمل المتناقضة تربك النموذج وتُضعف النتيجة</p></div>
+<div class="card b"><h4>❌ عدم تحديد الأسلوب</h4><p>النموذج سيختار أسلوبًا افتراضيًا قد لا يناسب رؤيتك</p></div>
+</div>
+<div class="warn"><b>⚠️ تذكير</b><p>Google Flow يفهم اللغة الإنجليزية بشكل أفضل حاليًا. يُنصح بكتابة البرومبت بالإنجليزية حتى لو كنت تفضل العربية.</p></div>
+</div>
+</main>
+</div>
+
+<!-- ===== PAGE: ANATOMY ===== -->
+<div class="page" id="page-anatomy">
+<main>
+<div class="section">
+<div class="sh"><div class="si p">🔬</div><h2>تشريح البرومبت الاحترافي</h2></div>
+<div class="lvl m">المستوى: متوسط</div>
+<p>البرومبت الاحترافي يتكون من 7 عناصر رئيسية. لا تحتاج لاستخدام جميعها دائمًا، لكن فهمها يمنحك تحكمًا كاملاً:</p>
+<div class="acc">
+<div class="ai"><div class="ah" onclick="tog(this)"><span>1. الموضوع الرئيسي (Subject)</span><span class="ar">▼</span></div><div class="ab"><p>العنصر الأساسي الذي تريد تصويره. يجب أن يكون واضحًا ومحددًا.</p><p><strong>مثال:</strong> "A majestic lion with a flowing mane"</p></div></div>
+<div class="ai"><div class="ah" onclick="tog(this)"><span>2. الفعل / الحركة (Action)</span><span class="ar">▼</span></div><div class="ab"><p>ماذا يفعل الموضوع؟ هذا يضيف حياة وحركة للمشهد.</p><p><strong>مثال:</strong> "leaping over a rocky cliff at sunset"</p></div></div>
+<div class="ai"><div class="ah" onclick="tog(this)"><span>3. البيئة / الخلفية (Environment)</span><span class="ar">▼</span></div><div class="ab"><p>أين يقع المشهد؟ البيئة تمنح السياق والمزاج.</p><p><strong>مثال:</strong> "in an African savanna with acacia trees"</p></div></div>
+<div class="ai"><div class="ah" onclick="tog(this)"><span>4. الإضاءة (Lighting)</span><span class="ar">▼</span></div><div class="ab"><p>نوع الإضاءة يؤثر بشكل كبير على مزاج الصورة.</p><p><strong>مثال:</strong> "golden hour lighting with lens flare"</p></div></div>
+<div class="ai"><div class="ah" onclick="tog(this)"><span>5. الأسلوب الفني (Style)</span><span class="ar">▼</span></div><div class="ab"><p>هل تريد واقعيًا، كرتونيًا، زيتيًا، سايبربانك؟</p><p><strong>مثال:</strong> "in the style of cinematic photography, 35mm film"</p></div></div>
+<div class="ai"><div class="ah" onclick="tog(this)"><span>6. زاوية الكاميرا (Camera Angle)</span><span class="ar">▼</span></div><div class="ab"><p>زاوية التصوير تؤثر على الإحساس بالحجم والدراما.</p><p><strong>مثال:</strong> "low angle shot looking up, dramatic perspective"</p></div></div>
+<div class="ai"><div class="ah" onclick="tog(this)"><span>7. التفاصيل الإضافية (Details)</span><span class="ar">▼</span></div><div class="ab"><p>خامات، ألوان، جو عام، مؤثرات خاصة.</p><p><strong>مثال:</strong> "dust particles floating in the air, volumetric lighting"</p></div></div>
+</div>
+<div class="tip"><b>💡 قاعدة الذكاء</b><p>ابدأ بالموضوع → أضف الحركة → حدد البيئة → اختر الإضاءة → حدد الأسلوب → اختر الزاوية → أضف التفاصيل</p></div>
+</div>
+</main>
+</div>
+
+<!-- ===== PAGE: IMAGE ===== -->
+<div class="page" id="page-image">
+<main>
+<div class="section">
+<div class="sh"><div class="si r">🎨</div><h2>برومبتات توليد الصور</h2></div>
+<div class="lvl m">المستوى: متوسط</div>
+<p>توليد الصور عبر Google Flow يتطلب فهمًا دقيقًا لوصف ما تريد. إليك أمثلة عملية بمستويات مختلفة:</p>
+<div class="tabs"><button class="tab-btn on" onclick="stab(this,'tib')">مبتدئ</button><button class="tab-btn" onclick="stab(this,'tim')">متوسط</button><button class="tab-btn" onclick="stab(this,'tia')">متقدم</button></div>
+<div class="tc on" id="tib">
+<div class="pb"><div class="pl">📸 برومبت: قطة لطيفة</div><div class="pt">A cute orange tabby cat sitting on a windowsill, soft natural lighting, shallow depth of field</div><button class="copy-btn" onclick="cp(this,'A cute orange tabby cat sitting on a windowsill, soft natural lighting, shallow depth of field')">نسخ</button></div>
+<div class="pb"><div class="pl">🌅 برومبت: غروب الشمس</div><div class="pt">Beautiful sunset over a calm ocean, orange and pink clouds, reflective water surface</div><button class="copy-btn" onclick="cp(this,'Beautiful sunset over a calm ocean, orange and pink clouds, reflective water surface')">نسخ</button></div>
+<div class="pb"><div class="pl">🏔️ برومبت: جبل ثلجي</div><div class="pt">Snow-covered mountain peak, clear blue sky, dramatic lighting, ultra-detailed</div><button class="copy-btn" onclick="cp(this,'Snow-covered mountain peak, clear blue sky, dramatic lighting, ultra-detailed')">نسخ</button></div>
+<div class="ok-box"><b>✅ لاحظ</b><p>البرومبتات البسيطة: الموضوع + فعل/حالة + تفاصيل بسيطة. هذا يكفي للبدء!</p></div>
+</div>
+<div class="tc" id="tim">
+<div class="pb"><div class="pl">🌆 برومبت: مدينة مستقبلية</div><div class="pt">A futuristic city skyline at night, flying cars with neon trails, towering skyscrapers with holographic billboards, cyberpunk aesthetic, cinematic lighting, 8k resolution, ray tracing reflections on wet streets, shot from a rooftop perspective</div><button class="copy-btn" onclick="cp(this,'A futuristic city skyline at night, flying cars with neon trails, towering skyscrapers with holographic billboards, cyberpunk aesthetic, cinematic lighting, 8k resolution, ray tracing reflections on wet streets, shot from a rooftop perspective')">نسخ</button></div>
+<div class="pb"><div class="pl">🧙 برومبت: شخصية فانتازية</div><div class="pt">An ancient wizard with long white beard, wearing deep blue robes with silver runes, holding a glowing crystal staff, standing in a mystical forest with floating particles of light, ethereal fog, fantasy art style, highly detailed face and hands, dramatic rim lighting</div><button class="copy-btn" onclick="cp(this,'An ancient wizard with long white beard, wearing deep blue robes with silver runes, holding a glowing crystal staff, standing in a mystical forest with floating particles of light, ethereal fog, fantasy art style, highly detailed face and hands, dramatic rim lighting')">نسخ</button></div>
+<div class="tip"><b>💡 تقنية متوسطة</b><p>ابدأ من العام إلى الخاص: الموضوع → الأسلوب → البيئة → الإضاءة → التفاصيل الدقيقة</p></div>
+</div>
+<div class="tc" id="tia">
+<div class="pb"><div class="pl">🎭 برومبت: بورتريه سينمائي</div><div class="pt">Portrait of a Middle Eastern woman in her 30s, gentle smile, wearing modern minimalist jewelry, soft window light from the left creating Rembrandt lighting pattern, shallow depth of field f/1.4, shot on Hasselblad X1D, 90mm lens, color graded in teal and orange, film grain, hyper-realistic skin texture, cinematic composition, 8K, photorealistic, professional studio portrait photography --ar 2:3 --style raw --v 6</div><button class="copy-btn" onclick="cp(this,'Portrait of a Middle Eastern woman in her 30s, gentle smile, wearing modern minimalist jewelry, soft window light from the left creating Rembrandt lighting pattern, shallow depth of field f/1.4, shot on Hasselblad X1D, 90mm lens, color graded in teal and orange, film grain, hyper-realistic skin texture, cinematic composition, 8K, photorealistic, professional studio portrait photography --ar 2:3 --style raw --v 6')">نسخ</button></div>
+<div class="pb"><div class="pl">🏛️ برومبت: معمار كلاسيكي</div><div class="pt">Grand mosque interior with intricate geometric patterns, massive chandeliers casting warm golden light through stained glass windows, marble floors with perfect reflections, people in traditional attire praying, wide angle shot from center aisle, volumetric god rays, architectural photography, ultra-wide 14mm lens, tripod shot, long exposure, architectural digest style, perfect symmetry, 8K HDR --ar 16:9</div><button class="copy-btn" onclick="cp(this,'Grand mosque interior with intricate geometric patterns, massive chandeliers casting warm golden light through stained glass windows, marble floors with perfect reflections, people in traditional attire praying, wide angle shot from center aisle, volumetric god rays, architectural photography, ultra-wide 14mm lens, tripod shot, long exposure, architectural digest style, perfect symmetry, 8K HDR --ar 16:9')">نسخ</button></div>
+<div class="warn"><b>⚠️ ملاحظة احترافية</b><p>استخدم معاملات مثل --ar (نسبة الأبعاد) و --style و --v (الإصدار) للتحكم الدقيق في الناتج.</p></div>
+</div>
+<h3>كلمات سحرية لتحسين جودة الصور</h3>
+<div class="cg">
+<div class="card g"><h4>📐 الكاميرا</h4><p>8K, ultra-HD, photorealistic, RAW photo, shot on [camera], [lens]mm, f/[aperture]</p></div>
+<div class="card b"><h4>💡 الإضاءة</h4><p>golden hour, volumetric lighting, rim light, cinematic lighting, studio lighting</p></div>
+<div class="card r"><h4>🎨 الأسلوب</h4><p>cinematic, oil painting, watercolor, anime, concept art, film still</p></div>
+<div class="card y"><h4>✨ الجودة</h4><p>highly detailed, masterpiece, best quality, trending on ArtStation, award-winning</p></div>
+</div>
+</div>
+</main>
+</div>
+
+<!-- ===== PAGE: VIDEO ===== -->
+<div class="page" id="page-video">
+<main>
+<div class="section">
+<div class="sh"><div class="si o">🎬</div><h2>برومبتات توليد الفيديو</h2></div>
+<div class="lvl h">المستوى: متقدم</div>
+<p>توليد الفيديو عبر Google Flow يتطلب تفكيرًا مختلفًا — أنت لا تصف فقط لقطة واحدة، بل تصف حركة وإيقاعًا وتسلسلًا زمنيًا.</p>
+<h3>الفرق الجوهري: الصور مقابل الفيديو</h3>
+<table class="tbl"><tr><th>العنصر</th><th>الصور الثابتة</th><th>الفيديو المتحرك</th></tr>
+<tr><td>الوصف</td><td>لقطة واحدة ساكنة</td><td>سلسلة من اللقطات المتحركة</td></tr>
+<tr><td>الحركة</td><td>لا يوجد حركة</td><td>يجب وصف الحركة بوضوح</td></tr>
+<tr><td>الزمن</td><td>لحظة واحدة</td><td>بداية، وسط، نهاية</td></tr>
+<tr><td>الكاميرا</td><td>زاوية ثابتة</td><td>يمكن وصف حركة الكاميرا</td></tr>
+<tr><td>الإيقاع</td><td>غير مطلوب</td><td>بطيء، سريع، متسارع...</td></tr></table>
+<h3>هيكل برومبت الفيديو</h3>
+<div class="tip"><b>💡 الصيغة الذهبية</b><p>[الحركة/الفعل] + [الموضوع] + [البيئة] + [حركة الكاميرا] + [الأسلوب] + [المدة/الإيقاع]</p></div>
+<div class="tabs"><button class="tab-btn on" onclick="stab(this,'tvn')">طبيعة</button><button class="tab-btn" onclick="stab(this,'tvu')">مدن</button><button class="tab-btn" onclick="stab(this,'tvc')">شخصيات</button><button class="tab-btn" onclick="stab(this,'tvp')">منتجات</button></div>
+<div class="tc on" id="tvn">
+<div class="pb"><div class="pl">🌊 فيديو: أمواج المحيط</div><div class="pt">Slow motion aerial shot of powerful ocean waves crashing against volcanic rocks, water spray catching golden sunset light, camera slowly panning left revealing endless coastline, cinematic color grading with deep blues and warm oranges, 24fps cinematic look, 4K drone footage style</div><button class="copy-btn" onclick="cp(this,'Slow motion aerial shot of powerful ocean waves crashing against volcanic rocks')">نسخ</button></div>
+<div class="pb"><div class="pl">🦋 فيديو: فراشة</div><div class="pt">Macro shot of a monarch butterfly taking flight from a sunflower, wings unfolding in slow motion, golden hour backlighting creating translucent wing effect, pollen particles floating in sunbeams, shallow depth of field, nature documentary style, 120fps slow motion</div><button class="copy-btn" onclick="cp(this,'Macro shot of a monarch butterfly taking flight from a sunflower, wings unfolding in slow motion')">نسخ</button></div>
+</div>
+<div class="tc" id="tvu">
+<div class="pb"><div class="pl">🌃 فيديو: مدينة ليلاً</div><div class="pt">Timelapse of a busy Tokyo intersection at night, streams of light trails from car headlights, crowds crossing in synchronized waves, neon signs flickering, rain reflections on asphalt, camera slowly tilting up to reveal towering buildings, cyberpunk aesthetic, shot on Sony A7IV, 24-70mm lens</div><button class="copy-btn" onclick="cp(this,'Timelapse of a busy Tokyo intersection at night, streams of light trails from car headlights')">نسخ</button></div>
+<div class="pb"><div class="pl">☕ فيديو: مقهى</div><div class="pt">Cozy coffee shop interior, barista pouring latte art in slow motion, steam rising from cup, warm pendant lighting, bookshelves in soft focus background, camera slowly dolly in on the cup, cinematic warm tones, shallow depth of field, lifestyle commercial style, 60fps</div><button class="copy-btn" onclick="cp(this,'Cozy coffee shop interior, barista pouring latte art in slow motion, steam rising from cup')">نسخ</button></div>
+</div>
+<div class="tc" id="tvc">
+<div class="pb"><div class="pl">🏃 فيديو: عداء</div><div class="pt">Athletic runner sprinting on a misty forest trail at dawn, muscles flexing, breath visible in cold air, camera tracking alongside at ground level, slow motion foot strikes kicking up dirt and leaves, god rays through trees, sports documentary style, 240fps super slow motion</div><button class="copy-btn" onclick="cp(this,'Athletic runner sprinting on a misty forest trail at dawn, muscles flexing, breath visible in cold air')">نسخ</button></div>
+<div class="pb"><div class="pl">💃 فيديو: راقصة</div><div class="pt">Ballet dancer performing a graceful pirouette on a grand stage, flowing dress creating circular motion blur, single spotlight following her, dark theatrical background, dust particles in light beam, slow motion capturing every muscle tension, classical ballet cinematography, 120fps</div><button class="copy-btn" onclick="cp(this,'Ballet dancer performing a graceful pirouette on a grand stage, flowing dress creating circular motion blur')">نسخ</button></div>
+</div>
+<div class="tc" id="tvp">
+<div class="pb"><div class="pl">📱 فيديو: منتج تقني</div><div class="pt">Sleek smartphone floating and rotating in a dark studio, edge lighting creating a glowing outline, camera orbiting 360 degrees around the device, screen displaying vibrant UI animation, reflective glass surface with subtle rainbow refraction, product commercial style, 60fps smooth motion, 8K</div><button class="copy-btn" onclick="cp(this,'Sleek smartphone floating and rotating in a dark studio, edge lighting creating a glowing outline')">نسخ</button></div>
+<div class="pb"><div class="pl">🍫 فيديو: طعام</div><div class="pt">Close-up of rich chocolate cake being sliced, warm melted chocolate flowing down the sides, slow motion capture, fork breaking through soft layers revealing cream filling, warm studio lighting from above, steam rising, food photography style, appetizing colors, 120fps slow motion, 4K macro</div><button class="copy-btn" onclick="cp(this,'Close-up of rich chocolate cake being sliced, warm melted chocolate flowing down the sides, slow motion capture')">نسخ</button></div>
+</div>
+<div class="ok-box"><b>🎯 نصيحة المحترفين</b><p>في Google Flow، يمكنك إضافة معاملات مثل --duration 5s للتحكم في مدة الفيديو، و --motion 1-5 لمستوى الحركة.</p></div>
+</div>
+</main>
+</div>
+
+<!-- ===== PAGE: ADVANCED ===== -->
+<div class="page" id="page-advanced">
+<main>
+<div class="section">
+<div class="sh"><div class="si y">⚡</div><h2>تقنيات متقدمة</h2></div>
+<div class="lvl h">المستوى: محترف</div>
+<h3>1. البرومبت السلبي (Negative Prompt)</h3>
+<p>أخبر النموذج بما لا تريد! هذا يمنع العناصر غير المرغوبة في الناتج.</p>
+<div class="pb"><div class="pl">🚫 برومبت سلبي</div><div class="pt">Negative prompt: blurry, low quality, distorted, deformed, ugly, bad anatomy, watermark, text, logo, oversaturated, grain</div><button class="copy-btn" onclick="cp(this,'Negative prompt: blurry, low quality, distorted, deformed, ugly, bad anatomy, watermark, text, logo, oversaturated, grain')">نسخ</button></div>
+<h3>2. الأوزان والتركيز (Weights)</h3>
+<p>استخدم الأقواس للتأكيد على عناصر مهمة:</p>
+<div class="cg">
+<div class="card b"><h4>(word:1.3)</h4><p>زيادة أهمية العنصر</p></div>
+<div class="card r"><h4>[word:0.7]</h4><p>تقليل أهمية العنصر</p></div>
+<div class="card g"><h4>word1 | word2</h4><p>دمج عدة أوصاف</p></div>
+</div>
+<h3>3. معاملات التحكم في Google Flow</h3>
+<table class="tbl"><tr><th>المعامل</th><th>الوظيفة</th><th>مثال</th></tr>
+<tr><td>--ar</td><td>نسبة الأبعاد</td><td>--ar 16:9, --ar 9:16, --ar 1:1</td></tr>
+<tr><td>--style</td><td>أسلوب الصورة</td><td>--style raw, --style anime</td></tr>
+<tr><td>--v</td><td>إصدار النموذج</td><td>--v 6</td></tr>
+<tr><td>--chaos</td><td>العشوائية</td><td>--chaos 80 (تنوع), --chaos 0 (دقيق)</td></tr>
+<tr><td>--stylize</td><td>درجة التنسيق</td><td>--stylize 250</td></tr></table>
+<div class="warn"><b>⚠️ انتبه</b><p>قيم --stylize العالية (500+) تنتج نتائج فنية جريئة ولكنها قد تفقد التفاصيل. القيم المنخفضة (0-100) تكون أكثر واقعية ودقة.</p></div>
+</div>
+</main>
+</div>
+
+<!-- ===== PAGE: BUILDER ===== -->
+<div class="page" id="page-builder">
+<main>
+<div class="section">
+<div class="sh"><div class="si b">🛠️</div><h2>Builder البرومبت التفاعلي</h2></div>
+<div class="lvl m">المستوى: تدريبي</div>
+<p>استخدم هذا البناء التفاعلي لإنشاء برومبت احترافي خطوة بخطوة:</p>
+<div class="bc">
+<div class="bf"><label>الموضوع الرئيسي</label><input id="bsubj" placeholder="مثال: A majestic lion, A futuristic city" oninput="buildPrompt()"></div>
+<div class="bf"><label>الفعل / الحركة</label><input id="bact" placeholder="مثال: leaping over a cliff, flying through clouds" oninput="buildPrompt()"></div>
+<div class="bf"><label>البيئة</label><input id="benv" placeholder="مثال: in a mystical forest, on a tropical beach" oninput="buildPrompt()"></div>
+<div class="bf"><label>الإضاءة</label><select id="blight" onchange="buildPrompt()"><option value="">اختر...</option><option>golden hour lighting</option><option>cinematic lighting</option><option>soft diffused natural light</option><option>dramatic rim lighting</option><option>neon glow lighting</option><option>volumetric god rays</option></select></div>
+<div class="bf"><label>الأسلوب الفني</label><select id="bstyle" onchange="buildPrompt()"><option value="">اختر...</option><option>cinematic photography</option><option>oil painting</option><option>anime style</option><option>cyberpunk aesthetic</option><option>watercolor illustration</option><option>photorealistic</option></select></div>
+<div class="bf"><label>زاوية الكاميرا</label><select id="bcam" onchange="buildPrompt()"><option value="">اختر...</option><option>low angle shot</option><option>bird s eye view</option><option>close-up macro</option><option>wide establishing shot</option><option>over-the-shoulder</option></select></div>
+<div class="bf"><label>إضافات الجودة</label><input id="bqual" placeholder="مثال: 8K, highly detailed, masterpiece" oninput="buildPrompt()"></div>
+<div class="bf"><label>برومبت سلبي (اختياري)</label><input id="bneg" placeholder="مثال: blurry, low quality, watermark" oninput="buildPrompt()"></div>
+<div class="bo"><div class="bl">✨ البرومبت المُولَّد (جاهز للنسخ):</div><div class="bt" id="boutput">املأ الحقول أعلاه لإنشاء برومبت احترافي...</div><button class="copy-btn" onclick="cpOutput()">نسخ البرومبت</button></div>
+</div>
+</div>
+</main>
+</div>
+
+<!-- ===== PAGE: QUIZ ===== -->
+<div class="page" id="page-quiz">
+<main>
+<div class="section">
+<div class="sh"><div class="si g">🧠</div><h2>اختبر نفسك</h2></div>
+<div class="lvl h">اختبار قصير</div>
+<p>أجب عن الأسئلة التالية لاختبار معلوماتك:</p>
+<div id="quiz-area"></div>
+<div id="quiz-result"></div>
+</div>
+</main>
+</div>
+
+<!-- ===== PAGE: CHECKLIST ===== -->
+<div class="page" id="page-checklist">
+<main>
+<div class="prog"><div style="display:flex;justify-content:space-between;align-items:center"><strong>تقدمك في الدورة</strong><span id="pp" style="color:var(--gb);font-weight:700">0%</span></div><div class="pb-con"><div class="pb-f" id="pbar"></div></div><div class="pl-l"><span>مبتدئ</span><span>متوسط</span><span>متقدم</span><span>محترف</span></div></div>
+<div class="section">
+<div class="sh"><div class="si y">✅</div><h2>قائمة الإنجاز</h2></div>
+<div class="lvl m">تتبع تقدمك</div>
+<p>علّم على كل مهمة تكملها لتتبع تقدمك:</p>
+<ul class="chk">
+<li><input type="checkbox" onchange="checkItem(this)"><span>قرأت المقدمة وفهمت أساسيات البرومبت</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>تعلمت المبادئ الأربعة للبرومبت الفعّال</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>فهمت العناصر السبعة للبرومبت الاحترافي</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>تدربت على كتابة 3 برومبتات صور للمبتدئين</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>تدربت على كتابة 3 برومبتات صور للمتوسطين</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>تدربت على كتابة برومبتين صور للمحترفين</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>فهمت الفرق بين برومبتات الصور والفيديو</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>تدربت على كتابة برومبتين فيديو</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>تعلمت استخدام البرومبت السلبي</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>تعلمت معاملات التحكم في Google Flow</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>استخدمت Builder البرومبت لإنشاء برومبت كامل</span></li>
+<li><input type="checkbox" onchange="checkItem(this)"><span>اجتزت الاختبار النهائي بنجاح</span></li>
+</ul>
+</div>
+</main>
+</div>
+
+<footer>
+<div class="fd"><i></i><i></i><i></i><i></i></div>
+<p><strong>إعداد: المهندس علي موجد</strong></p>
+<p>© 2026 — جميع الحقوق محفوظة</p>
+<p>دليل تفاعلي لاحتراف كتابة البرومبت مع Google Flow</p>
+</footer>
+
+<button class="st-t" id="stt" onclick="scrollToTop()">↑</button>
+
+<script>
+// ===== NAVIGATION =====
+var pages=['intro','basics','anatomy','image','video','advanced','builder','quiz','checklist'];
+function showPage(name){
+document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+var target=document.getElementById('page-'+name);
+if(target){target.classList.add('active')}
+document.querySelectorAll('nav a').forEach(function(a){a.classList.toggle('active',a.dataset.page===name)});
+window.scrollTo({top:0,behavior:'smooth'});
+updatePageIndicator(name);
+}
+document.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();showPage(this.dataset.page)})});
+function updatePageIndicator(current){var idx=pages.indexOf(current);document.querySelectorAll('.page-ind .pi').forEach(function(pi,i){pi.classList.toggle('on',i===idx)})}
+// ===== DARK MODE =====
+function toggleDark(){document.body.classList.toggle('dark');var isDark=document.body.classList.contains('dark');document.getElementById('darkToggle').textContent=isDark?'☀️':'🌙';localStorage.setItem('darkMode',isDark)}
+if(localStorage.getItem('darkMode')==='true'){document.body.classList.add('dark');document.getElementById('darkToggle').textContent='☀️'}
+// ===== TABS =====
+function stab(btn,id){var parent=btn.closest('.section');parent.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('on')});parent.querySelectorAll('.tc').forEach(function(t){t.classList.remove('on')});btn.classList.add('on');document.getElementById(id).classList.add('on')}
+// ===== ACCORDION =====
+function tog(el){el.parentElement.classList.toggle('on')}
+// ===== COPY =====
+function cp(btn,text){navigator.clipboard.writeText(text).then(function(){btn.classList.add('ok');btn.textContent='تم النسخ!';setTimeout(function(){btn.classList.remove('ok');btn.textContent='نسخ'},2000)})}
+function cpOutput(){var t=document.getElementById('boutput').textContent;if(t&&t.includes('A ')){navigator.clipboard.writeText(t).then(function(){var b=document.querySelector('.bo .copy-btn');b.classList.add('ok');b.textContent='تم النسخ!';setTimeout(function(){b.classList.remove('ok');b.textContent='نسخ البرومبت'},2000)})}}
+// ===== BUILDER =====
+function buildPrompt(){var s=document.getElementById('bsubj').value,a=document.getElementById('bact').value,e=document.getElementById('benv').value,l=document.getElementById('blight').value,st=document.getElementById('bstyle').value,c=document.getElementById('bcam').value,q=document.getElementById('bqual').value,n=document.getElementById('bneg').value;var parts=[];if(s)parts.push(s);if(a)parts.push(a);if(e)parts.push(e);if(l)parts.push(l);if(st)parts.push('in the style of '+st);if(c)parts.push(c);if(q)parts.push(q);var result=parts.join(', ');if(n)result+=' | Negative: '+n;result+=' --ar 16:9 --v 6';document.getElementById('boutput').textContent=result||'املأ الحقول أعلاه لإنشاء برومبت احترافي...'}
+// ===== CHECKLIST =====
+function checkItem(cb){cb.parentElement.classList.toggle('done',cb.checked);updateProgress()}
+function updateProgress(){var total=document.querySelectorAll('.chk input').length;var checked=document.querySelectorAll('.chk input:checked').length;var pct=Math.round((checked/total)*100);document.getElementById('pp').textContent=pct+'%';document.getElementById('pbar').style.width=pct+'%'}
+// ===== QUIZ =====
+var quizData=[
+{q:'ما هو أفضل وصف للبرومبت الفعّال؟',opts:['نص طويل ومبهم','وصف محدد وواضح مع تفاصيل','نص قصير من كلمة واحدة','نص باللغة العربية فقط'],a:1},
+{q:'ما هي الصيغة الذهبية لبرومبت الفيديو؟',opts:['الموضوع + الألوان','الحركة + الموضوع + البيئة + الكاميرا + الأسلوب + الإيقاع','البيئة + الإضاءة فقط','الموضوع + الأسلوب فقط'],a:1},
+{q:'ماذا يفعل البرومبت السلبي (Negative Prompt)؟',opts:['يحسن الألوان','يخبر النموذج بما لا تريد','يضيف تأثيرات خاصة','يزيد سرعة التوليد'],a:1},
+{q:'ما هو معامل --ar؟',opts:['يتحكم في الإضاءة','يتحكم في نسبة الأبعاد','يتحكم في الأسلوب','يتحكم في الجودة'],a:1}
+];
+function renderQuiz(){var area=document.getElementById('quiz-area');quizData.forEach(function(q,i){var div=document.createElement('div');div.className='ai';div.style.marginBottom='16px';div.innerHTML='<div class="ah" style="cursor:default"><span>'+(i+1)+'. '+q.q+'</span></div>';var body=document.createElement('div');body.className='ab';body.style.maxHeight='none';body.style.padding='14px 18px';q.opts.forEach(function(opt,j){var p=document.createElement('p');p.style.cssText='padding:10px 16px;border:1px solid var(--ge);border-radius:10px;cursor:pointer;font-size:.9rem;transition:all .3s cubic-bezier(0.4,0,0.2,1);margin-bottom:8px';p.textContent=String.fromCharCode(65+j)+') '+opt;p.onclick=function(){if(div.dataset.done)return;div.dataset.done='1';if(j===q.a){p.style.background='#e6f4ea';p.style.borderColor='var(--gg)';div.style.borderColor='var(--gg)'}else{p.style.background='#fce8e6';p.style.borderColor='var(--gr)';var correct=body.children[q.a];correct.style.background='#e6f4ea';correct.style.borderColor='var(--gg)'}body.querySelectorAll('p').forEach(function(pp){pp.style.cursor='not-allowed';pp.style.pointerEvents='none'});checkQuizComplete()};body.appendChild(p)});div.appendChild(body);area.appendChild(div)})}
+function checkQuizComplete(){var done=document.querySelectorAll('#quiz-area [data-done]').length;if(done===quizData.length){var res=document.getElementById('quiz-result');res.className='ok-box';res.style.textAlign='center';res.style.padding='20px';res.innerHTML='<b>🎉 أحسنت!</b><p>لقد أكملت الاختبار بنجاح!</p>'}}
+renderQuiz()
+// ===== SCROLL TOP =====
+window.addEventListener('scroll',function(){var stt=document.getElementById('stt');if(window.scrollY>400){stt.classList.add('vis')}else{stt.classList.remove('vis')}});
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+// ===== PAGE INDICATOR =====
+var pageInd=document.createElement('div');pageInd.className='page-ind';pages.forEach(function(_,i){var dot=document.createElement('div');dot.className='pi'+(i===0?' on':'');pageInd.appendChild(dot)});document.querySelector('main').parentNode.insertBefore(pageInd,document.querySelector('main'));
+</script>
+</body>
+</html>
